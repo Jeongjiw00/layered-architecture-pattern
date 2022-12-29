@@ -88,8 +88,8 @@ class PostService {
       nickname: findPost.nickname,
       title: findPost.title,
       content: findPost.content,
-      createdAt: createPostData.createdAt,
-      updatedAt: createPostData.updatedAt,
+      createdAt: findPost.createdAt,
+      updatedAt: findPost.updatedAt,
     };
   };
 }

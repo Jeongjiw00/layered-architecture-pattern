@@ -1,7 +1,9 @@
 const PostRepository = require("../repositories/posts.repository");
+const { Posts } = require("../models/index.js");
 
 class PostService {
-  postRepository = new PostRepository();
+  //전달받은 postModel, Posts를 이용해서 repository생성
+  postRepository = new PostRepository(Posts);
 
   findAllPost = async () => {
     // 저장소(Repository)에게 데이터를 요청합니다.

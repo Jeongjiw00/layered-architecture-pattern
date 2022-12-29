@@ -23,7 +23,30 @@ describe("Layered Architecture Pattern, Posts Domain Integration Test", () => {
   });
 
   test("POST /api/posts API (createPost) Integration Test Success Case", async () => {
-    // TODO: 여기에 코드를 작성해야합니다.
+    const createPostBodyParams = {
+      nickname: "Nickname_Success",
+      password: "Password_Success",
+      title: "Title_Success",
+      content: "Content_Success",
+    };
+
+    const response = await supertest(app)
+      .post(`/api/posts`) // API의 HTTP Method & URL
+      .send(createPostBodyParams); // Request Body
+
+    // 1. API의 status가 201
+    expect(response.status).toEqual(201);
+    // 2. API의 res 데이터는 { postId, nickname, title, content, createdAt, updatedAt }
+    expect(response.body).toMatchObject({
+      data: {
+        postId: 1,
+        nickname: createPostBodyParams.nickname,
+        title: createPostBodyParams.title,
+        content: createPostBodyParams.content,
+        createdAt: expect.anything(), //null, undefined만 아니면 된다. => 존재하기만 하면 된다.
+        updatedAt: expect.anything(),
+      },
+    });
   });
 
   test("POST /api/posts API (createPost) Integration Test Error Case, Invalid Params Error", async () => {

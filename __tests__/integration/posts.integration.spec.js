@@ -50,11 +50,23 @@ describe("Layered Architecture Pattern, Posts Domain Integration Test", () => {
   });
 
   test("POST /api/posts API (createPost) Integration Test Error Case, Invalid Params Error", async () => {
-    // TODO: 여기에 코드를 작성해야합니다.
+    const response = await supertest(app)
+      .post(`/api/posts`) // API의 HTTP Method & URL
+      .send(); // Request Body
+
+    // 1. API의 status가 400
+    expect(response.status).toEqual(400);
+    // 2. API의 res 데이터는 { errorMessage: error.message }
+    expect(response.body).toEqual({ errorMessage: "InvalidParamsError" });
   });
 
   test("GET /api/posts API (getPosts) Integration Test Success Case, is Exist Posts Data", async () => {
-    // TODO: 여기에 코드를 작성해야합니다.
+    const response = await supertest(app).get(`/api/posts`); // API의 HTTP Method & URL
+
+    // 1. API의 status가 200
+    expect(response.status).toEqual(200);
+    // 2. API의 res 데이터는 { data: [ { postId, nickname, title, createdAt, updatedAt }] }
+    expect(response.body).toEqual({ errorMessage: "InvalidParamsError" });
   });
 });
 

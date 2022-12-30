@@ -11,6 +11,7 @@ beforeAll(async () => {
 });
 
 describe("Layered Architecture Pattern, Posts Domain Integration Test", () => {
+  //게시글생성 안했을때 게시글 조회
   test("GET /api/posts API (getPosts) Integration Test Success Case, Not Found Posts Data", async () => {
     const response = await supertest(app).get(`/api/posts`); // API의 HTTP Method & URL
     // .query({}) // Request Query String
@@ -22,6 +23,7 @@ describe("Layered Architecture Pattern, Posts Domain Integration Test", () => {
     expect(response.body).toEqual({ data: [] });
   });
 
+  //게시글생성-성공
   test("POST /api/posts API (createPost) Integration Test Success Case", async () => {
     const createPostBodyParams = {
       nickname: "Nickname_Success",
@@ -49,6 +51,7 @@ describe("Layered Architecture Pattern, Posts Domain Integration Test", () => {
     });
   });
 
+  //게시글생성-실패
   test("POST /api/posts API (createPost) Integration Test Error Case, Invalid Params Error", async () => {
     const response = await supertest(app)
       .post(`/api/posts`) // API의 HTTP Method & URL
@@ -60,6 +63,7 @@ describe("Layered Architecture Pattern, Posts Domain Integration Test", () => {
     expect(response.body).toEqual({ errorMessage: "InvalidParamsError" });
   });
 
+  //게시글 생성한 후 게시글 조회
   test("GET /api/posts API (getPosts) Integration Test Success Case, is Exist Posts Data", async () => {
     const createPostBodyParams = {
       nickname: "Nickname_Success",
